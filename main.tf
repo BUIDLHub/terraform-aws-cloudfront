@@ -30,7 +30,7 @@ resource "aws_cloudfront_distribution" "this" {
   lifecycle {
     # origin_path managed by external deploy script
     ignore_changes = [
-      "origin.origin_path",
+      origin[0].origin_path,
     ]
   }
 
