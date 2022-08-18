@@ -27,6 +27,13 @@ resource "aws_cloudfront_distribution" "this" {
   web_acl_id          = var.web_acl_id
   tags                = var.tags
 
+  lifecycle {
+    # origin_path managed by external deploy script
+    ignore_changes = [
+      "origin.origin_path",
+    ]
+  }
+
   dynamic "logging_config" {
     for_each = length(keys(var.logging_config)) == 0 ? [] : [var.logging_config]
 
